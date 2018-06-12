@@ -1,0 +1,74 @@
+<?php
+// module/Album/view/order/order/add.phtml:
+
+$title = 'Добавление заказа';
+$this->headTitle($title);
+?>
+    <h1><?= $this->escapeHtml($title) ?></h1>
+<?php
+$user_id = $form->get('user_id');
+$user_id->setAttribute('class', 'form-control');
+$user_id->setAttribute('placeholder', 'Номер пользователя');
+
+// This provides a default CSS class and placeholder text for the artist element:
+$book_id = $form->get('book_id');
+$book_id->setAttribute('class', 'form-control');
+$book_id->setAttribute('placeholder', 'Издание');
+
+$ordered = $form->get('ordered');
+$ordered->setAttribute('class', 'form-control');
+$ordered->setAttribute('placeholder', 'Дата заказа');
+
+$finished = $form->get('finished');
+$finished->setAttribute('class', 'form-control');
+$finished->setAttribute('placeholder', 'Дата выдачи заказа');
+
+$status = $form->get('status');
+$status->setAttribute('class', 'form-control');
+$status->setAttribute('placeholder', 'Статус');
+
+// This provides CSS classes for the submit button:
+$submit = $form->get('submit');
+$submit->setAttribute('class', 'btn btn-primary');
+
+$form->setAttribute('action', $this->url('order', ['action' => 'add']));
+$form->prepare();
+
+echo $this->form()->openTag($form);
+?>
+<?php // Wrap the elements in divs marked as form groups, and render the
+// label, element, and errors separately within ?>
+    <div class="form-group">
+        <?= $this->formLabel($user_id) ?>
+        <?= $this->formElement($user_id) ?>
+        <?= $this->formElementErrors()->render($user_id, ['class' => 'help-block']) ?>
+    </div>
+
+    <div class="form-group">
+        <?= $this->formLabel($book_id) ?>
+        <?= $this->formElement($book_id) ?>
+        <?= $this->formElementErrors()->render($book_id, ['class' => 'help-block']) ?>
+    </div>
+
+    <div class="form-group">
+        <?= $this->formLabel($ordered) ?>
+        <?= $this->formElement($ordered) ?>
+        <?= $this->formElementErrors()->render($ordered, ['class' => 'help-block']) ?>
+    </div>
+
+    <div class="form-group">
+        <?= $this->formLabel($finished) ?>
+        <?= $this->formElement($finished) ?>
+        <?= $this->formElementErrors()->render($finished, ['class' => 'help-block']) ?>
+    </div>
+
+    <div class="form-group">
+        <?= $this->formLabel($status) ?>
+        <?= $this->formElement($status) ?>
+        <?= $this->formElementErrors()->render($status, ['class' => 'help-block']) ?>
+    </div>
+
+<?php
+echo $this->formSubmit($submit);
+echo $this->formHidden($form->get('id'));
+echo $this->form()->closeTag();

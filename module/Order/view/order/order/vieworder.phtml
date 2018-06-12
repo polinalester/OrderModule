@@ -1,0 +1,44 @@
+<?php
+// module/Album/view/order/order/index.phtml:
+
+$title = 'Мои заказы';
+$this->headTitle($title);
+?>
+<h1><?= $this->escapeHtml($title) ?></h1>
+<p>
+    <a href="<?= $this->url('order', ['action' => 'add']) ?>">Добавить заказ</a>
+</p>
+
+<table class="table">
+    <tr>
+        <th>Номер заказа</th>
+        <th>Издание</th>
+        <th>Дата заказа</th>
+        <th>Дата завершения заказа</th>
+        <th>Статус заказа</th>
+        <th>&nbsp;</th>
+    </tr>
+    <?php foreach ($this->paginator as $order) : ?>
+        <tr>
+            <td><?= $this->escapeHtml($order->id) ?></td>
+            <td><?= $this->escapeHtml($order->book_id) ?></td>
+            <td><?= $this->escapeHtml($order->ordered) ?></td>
+            <td><?= $this->escapeHtml($order->finished) ?></td>
+            <td><?= $this->escapeHtml($order->status) ?></td>
+            <td>
+                <a href="<?= $this->url('order', ['action' => 'edit', 'id' => $order->id]) ?>">Редактировать</a>
+                <a href="<?= $this->url('order', ['action' => 'delete', 'id' => $order->id]) ?>">Удалить</a>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+</table>
+<?= $this->paginationControl(
+// The paginator object:
+    $this->paginator,
+    // The scrolling style:
+    'sliding',
+    // The partial to use to render the control:
+    'partial/paginator',
+    // The route to link to when a user clicks a control link:
+    ['route' => 'order']
+) ?>

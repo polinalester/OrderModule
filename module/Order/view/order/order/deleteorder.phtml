@@ -1,0 +1,23 @@
+<?php
+// module/Order/view/order/order/delete.phtml:
+
+$title = 'Удаление заказа';
+$url   = $this->url('order', ['action' => 'delete', 'id' => $id]);
+
+$this->headTitle($title);
+?>
+<h1><?= $this->escapeHtml($title) ?></h1>
+
+<p>
+    Вы уверены, что хотите удалить заказ на
+    "<?= $this->escapeHtml($order->book_id) ?>" от
+    "<?= $this->escapeHtml($order->ordered) ?>"?
+</p>
+
+<form action="<?= $url ?>" method="post">
+    <div class="form-group">
+        <input type="hidden" name="id" value="<?= (int) $order->id ?>" />
+        <input type="submit" class="btn btn-danger" name="del" value="Yes" />
+        <input type="submit" class="btn btn-success" name="del" value="No" />
+    </div>
+</form>
