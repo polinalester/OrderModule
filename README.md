@@ -2,7 +2,7 @@
 
 1. Run VuFind installation script and choose Order as custom module.
 
-2. Copy OrderModule/module/Order/src folder to $VUFIND_HOME/module/Order/src/Order.
+2. Copy OrderModule/module/Order/src and OrderModule/module/Order/config folders to $VUFIND_HOME/module/Order/src/Order.
 
 3. Copy OrderModule/module/Order/view/order/order folder to $VUFIND_HOME/themes/{your_theme}/templates/myresearch.
 
