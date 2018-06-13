@@ -41,7 +41,8 @@ class Order implements InputFilterAwareInterface
 		$this->finished  = !empty($data['finished']) ? $data['finished'] : null;
         $this->status = !empty($data['status']) ? $data['status'] : null;
         try {
-            $this->record = load($this->book_id);
+            //$source = $this->params()->fromPost('source', $this->params()->fromQuery('source', DEFAULT_SEARCH_BACKEND));
+            $this->record = $this->getRecordLoader()->load($this->book_id);
         } catch(RecordMissingException $e){
             $this->record = null;
         }
