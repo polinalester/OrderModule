@@ -9,6 +9,7 @@ use Order\Model\Order;
 use Order\Form\OrderForm;
 use VuFind\Exception\Auth as AuthException;
 use VuFind\Controller\MyResearchController;
+use VuFind\Record\Loader;
 
 class OrderController extends MyResearchController
 {

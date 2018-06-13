@@ -9,6 +9,7 @@ use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
 use Zend\Validator\StringLength;
+use VuFind\Exception\RecordMissing as RecordMissingException;
 
 class Order implements InputFilterAwareInterface
 {
@@ -18,6 +19,7 @@ class Order implements InputFilterAwareInterface
     public $ordered;
     public $finished;
     public $status;
+    public $record;
 
     private $inputFilter;
 
@@ -38,6 +40,11 @@ class Order implements InputFilterAwareInterface
 		$this->ordered  = !empty($data['ordered']) ? $data['ordered'] : null;
 		$this->finished  = !empty($data['finished']) ? $data['finished'] : null;
         $this->status = !empty($data['status']) ? $data['status'] : null;
+        try {
+            $this->record = load($this->book_id);
+        } catch(RecordMissingException $e){
+            $this->record = null;
+        }
 
     }
     public function getArrayCopy()
@@ -49,6 +56,7 @@ class Order implements InputFilterAwareInterface
             'ordered'  => $this->ordered,
             'finished'  => $this->finished,
             'status'  => $this->status,
+            'record' => $this->record,
         ];
     }
     public function setInputFilter(InputFilterInterface $inputFilter)
