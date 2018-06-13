@@ -48,14 +48,11 @@ class OrderController extends MyResearchController
 
     public function addOrderAction()
     {
-    	if (!$this->getAuthManager()->isLoggedIn()) {
-            if ($this->params()->fromQuery('redirect', true)) {
-                $this->setFollowupUrlToReferer();
-            }
-            return $this->forwardTo('MyResearch', 'Login');
+    	$user = $this->getUser();
+        if (!$user) {
+            return $this->forceLogin();
         }
 
-        $user = $this->getUser();
         $user_id =  $user->id;
 
         $form = new OrderForm();
@@ -85,13 +82,10 @@ class OrderController extends MyResearchController
 
     public function editOrderAction()
     {
-    	if (!$this->getAuthManager()->isLoggedIn()) {
-            if ($this->params()->fromQuery('redirect', true)) {
-                $this->setFollowupUrlToReferer();
-            }
-            return $this->forwardTo('MyResearch', 'Login');
+    	$user = $this->getUser();
+        if (!$user) {
+            return $this->forceLogin();
         }
-
 
         $id = (int) $this->params()->fromRoute('id', 0);
 
@@ -125,7 +119,6 @@ class OrderController extends MyResearchController
             return $viewData;
         }
 
-        $user = $this->getUser();
         $user_id =  $user->id;
 
         $order->user_id = $user_id;
@@ -137,11 +130,9 @@ class OrderController extends MyResearchController
 
     public function deleteOrderAction()
     {
-    	if (!$this->getAuthManager()->isLoggedIn()) {
-            if ($this->params()->fromQuery('redirect', true)) {
-                $this->setFollowupUrlToReferer();
-            }
-            return $this->forwardTo('MyResearch', 'Login');
+    	$user = $this->getUser();
+        if (!$user) {
+            return $this->forceLogin();
         }
 
         $id = (int) $this->params()->fromRoute('id', 0);
