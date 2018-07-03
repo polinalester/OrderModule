@@ -8,7 +8,6 @@ class OrderForm extends Form
 {
     public function __construct($name = null)
     {
-        // We will ignore the name provided to the constructor
         parent::__construct('order');
 
         $this->add([
